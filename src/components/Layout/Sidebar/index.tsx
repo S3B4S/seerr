@@ -4,17 +4,7 @@ import useClickOutside from '@app/hooks/useClickOutside';
 import { Permission, useUser } from '@app/hooks/useUser';
 import defineMessages from '@app/utils/defineMessages';
 import { Transition, TransitionChild } from '@headlessui/react';
-import {
-  ClockIcon,
-  CogIcon,
-  ExclamationTriangleIcon,
-  EyeSlashIcon,
-  FilmIcon,
-  SparklesIcon,
-  TvIcon,
-  UsersIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -43,7 +33,6 @@ interface SidebarProps {
 
 interface SidebarLinkProps {
   href: string;
-  svgIcon: React.ReactNode;
   messagesKey: keyof typeof menuMessages;
   activeRegExp: RegExp;
   as?: string;
@@ -56,31 +45,26 @@ const SidebarLinks: SidebarLinkProps[] = [
   {
     href: '/',
     messagesKey: 'dashboard',
-    svgIcon: <SparklesIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/(discover\/?)?$/,
   },
   {
     href: '/discover/movies',
     messagesKey: 'browsemovies',
-    svgIcon: <FilmIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/discover\/movies$/,
   },
   {
     href: '/discover/tv',
     messagesKey: 'browsetv',
-    svgIcon: <TvIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/discover\/tv$/,
   },
   {
     href: '/requests',
     messagesKey: 'requests',
-    svgIcon: <ClockIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/requests/,
   },
   {
     href: '/blocklist',
     messagesKey: 'blocklist',
-    svgIcon: <EyeSlashIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/blocklist/,
     requiredPermission: [
       Permission.MANAGE_BLOCKLIST,
@@ -91,7 +75,6 @@ const SidebarLinks: SidebarLinkProps[] = [
   {
     href: '/issues',
     messagesKey: 'issues',
-    svgIcon: <ExclamationTriangleIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/issues/,
     requiredPermission: [
       Permission.MANAGE_ISSUES,
@@ -103,7 +86,6 @@ const SidebarLinks: SidebarLinkProps[] = [
   {
     href: '/users',
     messagesKey: 'users',
-    svgIcon: <UsersIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/users/,
     requiredPermission: Permission.MANAGE_USERS,
     dataTestId: 'sidebar-menu-users',
@@ -111,7 +93,6 @@ const SidebarLinks: SidebarLinkProps[] = [
   {
     href: '/settings',
     messagesKey: 'settings',
-    svgIcon: <CogIcon className="mr-3 h-6 w-6" />,
     activeRegExp: /^\/settings/,
     requiredPermission: Permission.ADMIN,
     dataTestId: 'sidebar-menu-settings',
@@ -224,7 +205,6 @@ const Sidebar = ({
                             } `}
                             data-testid={`${sidebarLink.dataTestId}-mobile`}
                           >
-                            {sidebarLink.svgIcon}
                             {intl.formatMessage(
                               menuMessages[sidebarLink.messagesKey]
                             )}
@@ -284,7 +264,6 @@ const Sidebar = ({
                       } `}
                       data-testid={sidebarLink.dataTestId}
                     >
-                      {sidebarLink.svgIcon}
                       {intl.formatMessage(
                         menuMessages[sidebarLink.messagesKey]
                       )}
