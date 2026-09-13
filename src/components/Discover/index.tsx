@@ -208,7 +208,7 @@ const Discover = () => {
           </Transition>
         </>
       )}
-      {(isEditing ? sliders : discoverData)?.map((slider, index) => {
+      {(isEditing ? sliders : discoverData)?.filter((slider) => slider.type !== DiscoverSliderType.MOVIE_GENRES).map((slider, index) => {
         let sliderComponent: React.ReactNode;
 
         switch (slider.type) {
